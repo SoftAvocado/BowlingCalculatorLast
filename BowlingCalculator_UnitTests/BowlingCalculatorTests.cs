@@ -1,13 +1,12 @@
-using System;
+using Bowling_Calculator;
+using NUnit.Framework;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BowlingCalculator.Tests
 {
-    [TestClass]
-    public class BowlingCalculatorTests
+    public class Tests
     {
-        [TestMethod]
+        [Test]
         public void calculate_Throws_standartThrows_lastThrowIsSpare()
         {
             List<int> throws = new List<int>() { 10, 7, 3, 7, 2, 9, 1, 10, 10, 10, 2, 3, 6, 4, 7, 3, 3 };
@@ -15,12 +14,12 @@ namespace BowlingCalculator.Tests
             List<int> actual_result = new List<int>();
 
             Calculator calc = new Calculator();
-            actual_result = calc.calculate_Throws(throws);
+            actual_result = calc.CalculateThrows(throws);
 
             CollectionAssert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void calculate_Throws_standartThrows_lastThrowNoBonus()
         {
             List<int> throws = new List<int>() { 10, 7, 3, 7, 2, 9, 1, 10, 10, 10, 2, 3, 6, 4, 7, 2 };
@@ -28,12 +27,12 @@ namespace BowlingCalculator.Tests
             List<int> actual_result = new List<int>();
 
             Calculator calc = new Calculator();
-            actual_result = calc.calculate_Throws(throws);
+            actual_result = calc.CalculateThrows(throws);
 
             CollectionAssert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void calculate_Throws_perfectThrows()
         {
             List<int> throws = new List<int>() { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
@@ -41,12 +40,12 @@ namespace BowlingCalculator.Tests
             List<int> actual_result = new List<int>();
 
             Calculator calc = new Calculator();
-            actual_result = calc.calculate_Throws(throws);
+            actual_result = calc.CalculateThrows(throws);
 
             CollectionAssert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void calculate_Throws_otherTrows_lastThrowIsStrike()
         {
             List<int> throws = new List<int>() { 2, 1, 9, 1, 10, 5, 5, 10, 4, 6, 6, 2, 7, 3, 10, 10, 10, 10 };
@@ -54,12 +53,12 @@ namespace BowlingCalculator.Tests
             List<int> actual_result = new List<int>();
 
             Calculator calc = new Calculator();
-            actual_result = calc.calculate_Throws(throws);
+            actual_result = calc.CalculateThrows(throws);
 
             CollectionAssert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void get_FrameResults_FromStandardThrowsFrame()
         {
             List<int> throws = new List<int>() { 10, 7, 3, 7, 2, 9, 1, 10, 10, 10, 2, 3, 6, 4, 7, 3, 3 };
@@ -68,13 +67,13 @@ namespace BowlingCalculator.Tests
             List<int> actual_result = new List<int>();
 
             Calculator calc = new Calculator();
-            calc.calculate_Throws(throws);
-            actual_result = calc.Get_FrameResults(frame_id);
+            calc.CalculateThrows(throws);
+            actual_result = calc.GetFrameResults(frame_id);
 
             CollectionAssert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void get_FrameScores_FromStandardThrowsFrame()
         {
             List<int> throws = new List<int>() { 10, 7, 3, 7, 2, 9, 1, 10, 10, 10, 2, 3, 6, 4, 7, 3, 3 };
@@ -83,13 +82,13 @@ namespace BowlingCalculator.Tests
             int actual_result;
 
             Calculator calc = new Calculator();
-            calc.calculate_Throws(throws);
-            actual_result = calc.Get_FrameScores(frame_id);
+            calc.CalculateThrows(throws);
+            actual_result = calc.GetFrameScores(frame_id);
 
             Assert.AreEqual(expexted_result, actual_result);
         }
 
-        [TestMethod]
+        [Test]
         public void get_FrameTotal_FromStandardThrowsFrame()
         {
             List<int> throws = new List<int>() { 10, 7, 3, 7, 2, 9, 1, 10, 10, 10, 2, 3, 6, 4, 7, 3, 3 };
@@ -98,8 +97,8 @@ namespace BowlingCalculator.Tests
             int actual_result;
 
             Calculator calc = new Calculator();
-            calc.calculate_Throws(throws);
-            actual_result = calc.Get_FrameTotal(frame_id);
+            calc.CalculateThrows(throws);
+            actual_result = calc.GetFrameTotal(frame_id);
 
             Assert.AreEqual(expexted_result, actual_result);
         }
