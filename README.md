@@ -23,6 +23,3 @@ Object of class Calculator recieves the list of all throws. One by one throws ar
 - IsBonusScore - bool
 - FrameScore - int, sum of ordinary and additional throws
 - Total - int, sum of all trows' scores by the time current fame has ended
-
-Project status:
-Right now I am trying to get rid of static variable frameIdCounter in class Game.
