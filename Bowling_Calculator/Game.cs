@@ -5,7 +5,6 @@ namespace Bowling_Calculator
     internal class Game
     {
         List<Frame> _results = new List<Frame>();
-        static int _frameIdCounter = 1;
 
         void AddFrameScoreToFrame(int frameId, int result)
         {
@@ -28,88 +27,88 @@ namespace Bowling_Calculator
             }
         }
 
-        void AddAllScores()
+        int DefineCurrentFrame()
         {
-            UpdateTotalScoreOfFrame(_frameIdCounter - 1);
-            _frameIdCounter++;
-        }
-
-        void CreateFrame()
-        {
-            if ((_results.Count == 0) || (_results[(_results.Count) - 1].IsFrameEnded))
+            int frameId;
+            if ((_results.Count == 0)||(_results[(_results.Count) - 1].IsFrameEnded))
             {
+                frameId = _results.Count;
                 _results.Add(new Frame());
             }
+            else
+            {
+                frameId = _results.Count-1;
+            }
+            return frameId;
         }
 
         public void ThrowBall(int result)
         {
             // create new frame if needed
-            int frameId = _frameIdCounter;
-            CreateFrame();
+            int frameId = DefineCurrentFrame();
 
             // 1st frame has been started
-            if (_frameIdCounter == 1)
+            if (frameId == 0)
             {
-                _results[_frameIdCounter - 1].AddResultThrow(result);
+                _results[frameId].AddResultThrow(result);
 
-                if (_results[_frameIdCounter - 1].IsFrameEnded)
+                if (_results[frameId].IsFrameEnded)
                 {
-                    AddAllScores();
+                    UpdateTotalScoreOfFrame(frameId);
                 }
                 else
                 {
-                    _results[_frameIdCounter - 1].Total = result;
+                    _results[frameId].Total = result;
                 }
             }
             // 2d frame has been started
-            else if (_frameIdCounter == 2)
+            else if (frameId == 1)
             {
-                AddFrameScoreToFrame(_frameIdCounter - 2, result);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 2);
-                _results[_frameIdCounter - 1].AddResultThrow(result);
+                AddFrameScoreToFrame(frameId - 1, result);
+                UpdateTotalScoreOfFrame(frameId - 1);
+                _results[frameId].AddResultThrow(result);
 
 
-                if (_results[_frameIdCounter - 1].IsFrameEnded)
+                if (_results[frameId].IsFrameEnded)
                 {
-                    AddAllScores();
+                    UpdateTotalScoreOfFrame(frameId);
                 }
                 else
                 {
-                    int previousTotal = _results[_frameIdCounter - 2].Total;
-                    _results[_frameIdCounter - 1].Total = previousTotal + result;
+                    int previousTotal = _results[frameId - 1].Total;
+                    _results[frameId].Total = previousTotal + result;
                 }
             }
             // 3d or more frame has been started
-            else if ((_frameIdCounter > 2) && (_frameIdCounter < 10))
+            else if ((frameId > 1) && (frameId < 9))
             {
-                AddFrameScoreToFrame(_frameIdCounter - 3, result);
-                AddFrameScoreToFrame(_frameIdCounter - 2, result);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 3);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 2);
-                _results[_frameIdCounter - 1].AddResultThrow(result);
+                AddFrameScoreToFrame(frameId - 2, result);
+                AddFrameScoreToFrame(frameId - 1, result);
+                UpdateTotalScoreOfFrame(frameId - 2);
+                UpdateTotalScoreOfFrame(frameId - 1);
+                _results[frameId].AddResultThrow(result);
 
-                if (_results[_frameIdCounter - 1].IsFrameEnded)
+                if (_results[frameId].IsFrameEnded)
                 {
-                    AddAllScores();
+                    UpdateTotalScoreOfFrame(frameId);
                 }
                 else
                 {
-                    int previousTotal = _results[_frameIdCounter - 2].Total;
-                    _results[_frameIdCounter - 1].Total = previousTotal + result;
+                    int previousTotal = _results[frameId - 1].Total;
+                    _results[frameId].Total = previousTotal + result;
                 }
             }
             // 10th frame has been started
-            else if (_frameIdCounter == 10)
+            else if (frameId == 9)
             {
-                AddFrameScoreToFrame(_frameIdCounter - 3, result);
-                AddFrameScoreToFrame(_frameIdCounter - 2, result);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 3);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 2);
-                _results[_frameIdCounter - 1].IsBonusThrow = true;
+                AddFrameScoreToFrame(frameId - 2, result);
+                AddFrameScoreToFrame(frameId - 1, result);
+                UpdateTotalScoreOfFrame(frameId - 2);
+                UpdateTotalScoreOfFrame(frameId - 1);
+                _results[frameId].IsBonusThrow = true;
 
-                _results[_frameIdCounter - 1].AddResultThrow(result);
-                UpdateTotalScoreOfFrame(_frameIdCounter - 1);
+                _results[frameId].AddResultThrow(result);
+                UpdateTotalScoreOfFrame(frameId);
             }
         }
 
@@ -131,11 +130,6 @@ namespace Bowling_Calculator
         public int GetLatestTotalScore()
         {
             return _results[_results.Count - 1].Total;
-        }
-
-        public void ReloadFrameIdCounter()
-        {
-            _frameIdCounter = 1;
         }
 
     }

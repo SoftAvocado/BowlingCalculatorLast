@@ -16,7 +16,6 @@ namespace Bowling_Calculator
                 _game.ThrowBall(score);
                 calculatorResults.Add(_game.GetLatestTotalScore());
             }
-            _game.ReloadFrameIdCounter();
 
             return calculatorResults;
         }

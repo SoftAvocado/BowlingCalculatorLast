@@ -51,7 +51,6 @@ namespace Bowling_Calculator
             {
                 IsFrameEnded = false;
             }
-
         }
 
         public List<int> GetResultThrows()
