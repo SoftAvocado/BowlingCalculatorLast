@@ -17,7 +17,7 @@ namespace Bowling_Calculator
 
         void UpdateTotalScoreOfFrame(int frameId)
         {
-            if (frameId + 1 == 1)
+            if (frameId == 0)
             {
                 _results[frameId].Total = _results[frameId].FrameScore;
             }
@@ -30,6 +30,9 @@ namespace Bowling_Calculator
         int DefineCurrentFrame()
         {
             int frameId;
+
+            // create new frame if there're no frames in results yet
+            // or the last frame in results has ended
             if ((_results.Count == 0)||(_results[(_results.Count) - 1].IsFrameEnded))
             {
                 frameId = _results.Count;
