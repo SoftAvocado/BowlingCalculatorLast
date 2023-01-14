@@ -23,3 +23,5 @@ Object of class Calculator recieves the list of all throws. One by one throws ar
 - IsBonusScore - bool
 - FrameScore - int, sum of ordinary and additional throws
 - Total - int, sum of all trows' scores by the time current fame has ended
+
+CI/CD automated testing is integrated into this project. 
